@@ -27,6 +27,12 @@
             <tag name="doctrine.event_subscriber" />
         </service>
 
+        <service id="goreply_doctrine_ciphersweet.command.reindex_blind_indexes" class="GoReply\DoctrineCiphersweetBundle\Command\ReindexBlindIndexesCommand" public="false">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="goreply_doctrine_ciphersweet.helper" />
+            <tag name="console.command" command="doctrine:ciphersweet:reindex-blind-indexes" />
+        </service>
+
         <service id="GoReply\DoctrineCiphersweet\BlindIndexSearchValueProvider" public="true">
             <argument type="service" id="goreply_doctrine_ciphersweet.helper" />
         </service>
