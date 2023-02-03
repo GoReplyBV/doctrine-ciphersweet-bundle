@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="goreply_doctrine_ciphersweet.symmetric_key">%env(DOCTRINE_CIPHERSWEET_KEY)%</parameter>
+    </parameters>
+
+    <services>
+        <service id="goreply_doctrine_ciphersweet.ciphersweet" class="ParagonIE\CipherSweet\CipherSweet" public="false">
+            <argument type="service" id="goreply_doctrine_ciphersweet.key_provider" />
+        </service>
+
+        <service id="goreply_doctrine_ciphersweet.key_provider" class="ParagonIE\CipherSweet\KeyProvider\StringProvider" public="false">
+            <argument>%goreply_doctrine_ciphersweet.symmetric_key%</argument>
+        </service>
+
+        <service id="goreply_doctrine_ciphersweet.helper" class="GoReply\DoctrineCiphersweet\Helper" public="false">
+            <argument type="service" id="goreply_doctrine_ciphersweet.ciphersweet" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="goreply_doctrine_ciphersweet.event_subscriber" class="GoReply\DoctrineCiphersweet\EventSubscriber\DoctrineCiphersweetEventSubscriber" public="false">
+            <argument type="service" id="goreply_doctrine_ciphersweet.helper" />
+            <tag name="doctrine.event_subscriber" />
+        </service>
+
+        <service id="GoReply\DoctrineCiphersweet\BlindIndexSearchValueProvider" public="true">
+            <argument type="service" id="goreply_doctrine_ciphersweet.helper" />
+        </service>
+    </services>
+
+</container>

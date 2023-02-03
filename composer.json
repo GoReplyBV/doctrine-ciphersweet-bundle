@@ -1,0 +1,25 @@
+{
+    "name": "goreply/doctrine-ciphersweet-bundle",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "goreply/doctrine-ciphersweet": ">=0.0.3",
+        "symfony/config": "^6.0",
+        "symfony/dependency-injection": "^6.0",
+        "symfony/http-kernel": "^6.0",
+        "symfony/yaml": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GoReply\\DoctrineCiphersweetBundle\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.9",
+        "symplify/easy-coding-standard": "^11.2"
+    }
+}
